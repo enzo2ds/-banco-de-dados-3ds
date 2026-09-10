@@ -1,0 +1,122 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# =====================================================================
+# 1. CENÁRIO DO MUNDO REAL: Crescimento de Usuários de um Novo Aplicativo
+# =====================================================================
+# Imagine que nosso aplicativo começou com 100 usuários e, a cada mês,
+# esse número cresce cerca de 40% em relação ao mês anterior (crescimento viral).
+
+
+meses = np.arange(1, 25) # Simulando 2 anos de funcionamento (mês 1 ao 24)
+usuarios_iniciais = 100
+taxa_crescimento = 1.40
+
+
+# Calculando o crescimento exponencial mês a mês: 100 * (1.40 ^ mês)
+usuarios_reais = usuarios_iniciais * (taxa_crescimento ** meses)
+
+
+# Criando a nossa tabela (DataFrame) de forma organizada
+dados_app = pd.DataFrame({
+   'Mes': meses,
+   'Total_Usuarios': usuarios_reais
+})# =============import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# =====================================================================
+# 1. CENÁRIO DO MUNDO REAL: Crescimento de Usuários de um Novo Aplicativo
+# =====================================================================
+# Imagine que nosso aplicativo começou com 100 usuários e, a cada mês,
+# esse número cresce cerca de 40% em relação ao mês anterior (crescimento viral).
+
+
+meses = np.arange(1, 25) # Simulando 2 anos de funcionamento (mês 1 ao 24)
+usuarios_iniciais = 100
+taxa_crescimento = 1.40
+
+
+# Calculando o crescimento exponencial mês a mês: 100 * (1.40 ^ mês)
+usuarios_reais = usuarios_iniciais * (taxa_crescimento ** meses)
+
+
+# Criando a nossa tabela (DataFrame) de forma organizada
+dados_app = pd.DataFrame({
+   'Mes': meses,
+   'Total_Usuarios': usuarios_reais
+})# =====================================================================
+# 2. POR QUE PRECISAMOS DA TRANSFORMAÇÃO? (O Problema)
+# =====================================================================
+# No começo, o app cresce devagar (de 100 para 140). Mas no final, o salto é gigante
+# (vai de 1 milhão para 1.4 milhão em um único mês).
+# Em um gráfico normal, os primeiros meses pareceriam uma linha reta no zero,
+# dificultando ver se o crescimento no início foi bom ou ruim.
+
+
+# Aplicamos o Logaritmo para "平-achatar" a escala e focar na taxa de crescimento percentual
+dados_app['Log_Usuarios'] = np.log(dados_app['Total_Usuarios'])
+# =====================================================================
+# 3. CRIANDO OS GRÁFICOS PARA COMPARAR (Visualização Prática)
+# =====================================================================
+# Vamos criar duas imagens lado a lado para você ver a diferença brutal.
+fig, visualizacoes = plt.subplots(1, 2, figsize=(14, 5))
+
+
+# Gráfico 1: Dados Originais (Escala Real)
+# Mostra o "boom" do crescimento, mas esconde o histórico do primeiro ano.
+sns.scatterplot(x='Mes', y='Total_Usuarios', data=dados_app, ax=visualizacoes[0], color='red')
+visualizacoes[0].set_title('Escala Original (Crescimento Explosivo)')
+visualizacoes[0].set_ylabel('Usuários (em Milhões)')
+
+
+# Gráfico 2: Dados Transformados com Logaritmo (Relação Linear)
+# Transforma a curva em uma linha reta perfeita. Aqui, cada centímetro vertical
+# representa o mesmo ganho percentual (40%), permitindo analisar todo o histórico igualmente.
+sns.regplot(x='Mes', y='Log_Usuarios', data=dados_app, ax=visualizacoes[1], color='blue')
+visualizacoes[1].set_title('Escala Logarítmica (Análise Estável/Linear)')
+visualizacoes[1].set_ylabel('Log do Total de Usuários')
+
+
+plt.tight_layout()
+plt.show()
+========================================================
+# 2. POR QUE PRECISAMOS DA TRANSFORMAÇÃO? (O Problema)
+# =====================================================================
+# No começo, o app cresce devagar (de 100 para 140). Mas no final, o salto é gigante
+# (vai de 1 milhão para 1.4 milhão em um único mês).
+# Em um gráfico normal, os primeiros meses pareceriam uma linha reta no zero,
+# dificultando ver se o crescimento no início foi bom ou ruim.
+
+
+# Aplicamos o Logaritmo para "平-achatar" a escala e focar na taxa de crescimento percentual
+dados_app['Log_Usuarios'] = np.log(dados_app['Total_Usuarios'])
+# =====================================================================
+# 3. CRIANDO OS GRÁFICOS PARA COMPARAR (Visualização Prática)
+# =====================================================================
+# Vamos criar duas imagens lado a lado para você ver a diferença brutal.
+fig, visualizacoes = plt.subplots(1, 2, figsize=(14, 5))
+
+
+# Gráfico 1: Dados Originais (Escala Real)
+# Mostra o "boom" do crescimento, mas esconde o histórico do primeiro ano.
+sns.scatterplot(x='Mes', y='Total_Usuarios', data=dados_app, ax=visualizacoes[0], color='red')
+visualizacoes[0].set_title('Escala Original (Crescimento Explosivo)')
+visualizacoes[0].set_ylabel('Usuários (em Milhões)')
+
+
+# Gráfico 2: Dados Transformados com Logaritmo (Relação Linear)
+# Transforma a curva em uma linha reta perfeita. Aqui, cada centímetro vertical
+# representa o mesmo ganho percentual (40%), permitindo analisar todo o histórico igualmente.
+sns.regplot(x='Mes', y='Log_Usuarios', data=dados_app, ax=visualizacoes[1], color='blue')
+visualizacoes[1].set_title('Escala Logarítmica (Análise Estável/Linear)')
+visualizacoes[1].set_ylabel('Log do Total de Usuários')
+
+
+plt.tight_layout()
+plt.show()
