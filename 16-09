@@ -1,0 +1,27 @@
+# Importa bibliotecas necessárias do Python
+import pandas as pd   # Manipulação de dados em tabelas
+import numpy as np    # Operações matemáticas e estatísticas
+import matplotlib.pyplot as plt   # Criação de gráficos básicos
+import seaborn as sns   # Visualizações estatísticas mais elaboradas
+
+# ==============================================================================
+# 1. CENÁRIO DO MUNDO REAL: Crescimento de Usuários de um Novo Aplicativo
+# ==============================================================================
+# Imagine que nosso aplicativo começou com 100 usuários e, a cada mês,
+# esse número cresce cerca de 40% em relação ao mês anterior (crescimento viral).
+
+meses = np.arange(1, 25) # Simulando 2 anos de funcionamento (mês 1 ao 24)
+usuarios_iniciais = 100
+taxa_crescimento = 1.40
+
+# Calculando o crescimento exponencial mês a mês: 100 * (1.40 ^ mês)
+usuarios_reais = usuarios_iniciais * (taxa_crescimento ** meses)
+
+# Criando a nossa tabela (DataFrame) de forma organizada
+dados_app = pd.DataFrame({
+    'Mes': meses,
+    'Total_Usuarios': usuarios_reais
+})
+
+# Visualiza a tabela
+dados_app
